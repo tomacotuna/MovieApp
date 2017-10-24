@@ -8,7 +8,7 @@ export default class Movies extends Component {
 
 	state = {
 		popupIsOpen: false,
-		chosenDat: 0,
+		chosenDay: 0,
 		chosenTime: null,
 	}
 
@@ -23,13 +23,13 @@ export default class Movies extends Component {
 		this.setState({
 			popupIsOpen: false,
 			chosenTime: null,
-			chosenDat: 0,
+			chosenDay: 0,
 		});
 	}
 
 	chooseDay = (day) => {
 		this.setState({
-			chooseDay: day,
+			chosenDay: day,
 		});
 	}
 
@@ -38,6 +38,22 @@ export default class Movies extends Component {
 			chosenTime: time,
 		});
 	}
+
+	bookTicket = () => {
+    // Make sure they selected time 
+	    if (!this.state.chosenTime) {
+	      alert('Please select show time');
+	    } else {
+	      // Close popup
+	      this.closeMovie();
+	      // Navigate away to Confirmation route
+	      this.props.navigator.push({
+	        name: 'confirmation',
+	        // Generate random string
+	        code: Math.random().toString(36).substring(6).toUpperCase(),
+	      });
+	    }
+	  }
 
 	render() {
 		return (
@@ -54,14 +70,14 @@ export default class Movies extends Component {
 						/>)}
 				</ScrollView>
 
-				<MoviePopup 
-					movie={this.state.movie}
-					isOpen={this.state.popupIsOpen}
-					onClose={this.closeMovie}
-					chooseDay={this.state.chooseDay}
-					chosenTime={this.state.chosenTime}
-					onChooseDay={this.state.chooseDay}
-					onChooseTime={this.state.chooseTime} 
+				<MoviePopup
+				  movie={this.state.movie}
+				  isOpen={this.state.popupIsOpen}
+				  onClose={this.closeMovie}
+				  chosenDay={this.state.chosenDay}
+				  chosenTime={this.state.chosenTime}
+				  onChooseDay={this.chooseDay}
+				  onChooseTime={this.chooseTime}
 					/>
 			</View>
 		)

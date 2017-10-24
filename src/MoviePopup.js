@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { defaultStyles } from './styles';
 import Options from './Options';
+import Confirmation from './Confirmation';
 
 // Get screen dimensions
 const { width, height } = Dimensions.get('window');
